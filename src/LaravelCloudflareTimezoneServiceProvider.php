@@ -3,6 +3,7 @@
 namespace Alignwebs\LaravelCloudflareTimezone;
 
 use Illuminate\Support\ServiceProvider;
+use PragmaRX\Countries\Package\Countries;
 
 class LaravelCloudflareTimezoneServiceProvider extends ServiceProvider
 {
@@ -11,36 +12,10 @@ class LaravelCloudflareTimezoneServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-cloudflare-timezone');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-cloudflare-timezone');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
-
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('laravel-cloudflare-timezone.php'),
             ], 'config');
-
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-cloudflare-timezone'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-cloudflare-timezone'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-cloudflare-timezone'),
-            ], 'lang');*/
-
-            // Registering package commands.
-            // $this->commands([]);
         }
     }
 
@@ -52,9 +27,23 @@ class LaravelCloudflareTimezoneServiceProvider extends ServiceProvider
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-cloudflare-timezone');
 
-        // Register the main class to use with the facade
-        $this->app->singleton('laravel-cloudflare-timezone', function () {
-            return new LaravelCloudflareTimezone;
-        });
+        if (!config('laravel-cloudflare-timezone.enabled'))
+            return false;
+
+        if (!isset($_SERVER['HTTP_CF_IPCOUNTRY']) && empty($_SERVER['HTTP_CF_IPCOUNTRY']))
+            return false;
+
+        $country_code = $_SERVER['HTTP_CF_IPCOUNTRY'];
+
+        $countries = new Countries();
+        $country = $countries->where('cca2', $country_code)->first();
+
+        if (!$country->count())
+            return false;
+
+        $timezone = $country->hydrate('timezones')->timezones->first()->zone_name;
+
+        config(['app.timezone' => $timezone]);
+        date_default_timezone_set($timezone);
     }
 }
