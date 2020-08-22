@@ -7,6 +7,10 @@
 
 This laravel package helps you to set your app's timezone in runtime according to Header "CF-IPCountry" value of CloudFlare.
 
+## Prerequisite - Cloudflare Setting
+
+Enable "IP Geolocation" from Network tab.
+
 ## Installation
 
 You can install the package via composer:
