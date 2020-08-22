@@ -1,11 +1,11 @@
-# Very short description of the package
+# Laravel Cloudflare Timezone
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/alignwebs/laravel-cloudflare-timezone.svg?style=flat-square)](https://packagist.org/packages/alignwebs/laravel-cloudflare-timezone)
 [![Build Status](https://img.shields.io/travis/alignwebs/laravel-cloudflare-timezone/master.svg?style=flat-square)](https://travis-ci.org/alignwebs/laravel-cloudflare-timezone)
 [![Quality Score](https://img.shields.io/scrutinizer/g/alignwebs/laravel-cloudflare-timezone.svg?style=flat-square)](https://scrutinizer-ci.com/g/alignwebs/laravel-cloudflare-timezone)
 [![Total Downloads](https://img.shields.io/packagist/dt/alignwebs/laravel-cloudflare-timezone.svg?style=flat-square)](https://packagist.org/packages/alignwebs/laravel-cloudflare-timezone)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This laravel package helps you to set your app's timezone in runtime according to Header "CF-IPCountry" value of CloudFlare.
 
 ## Installation
 
@@ -18,13 +18,7 @@ composer require alignwebs/laravel-cloudflare-timezone
 ## Usage
 
 ``` php
-// Usage description here
-```
-
-### Testing
-
-``` bash
-composer test
+php artisan vendor:publish --provider="Alignwebs\LaravelCloudflareTimezone\LaravelCloudflareTimezoneServiceProvider" --tag=config
 ```
 
 ### Changelog
