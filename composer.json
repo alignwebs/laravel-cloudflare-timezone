@@ -1,0 +1,54 @@
+{
+    "name": "alignwebs/laravel-cloudflare-timezone",
+    "description": "Laravel app timezone by cloudflare's "CF-IPCountry" HTTP header",
+    "keywords": [
+        "alignwebs",
+        "laravel-cloudflare-timezone"
+    ],
+    "homepage": "https://github.com/alignwebs/laravel-cloudflare-timezone",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Gulzar Ahmed",
+            "email": "alignwebs@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alignwebs\\LaravelCloudflareTimezone\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Alignwebs\\LaravelCloudflareTimezone\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Alignwebs\\LaravelCloudflareTimezone\\LaravelCloudflareTimezoneServiceProvider"
+            ],
+            "aliases": {
+                "LaravelCloudflareTimezone": "Alignwebs\\LaravelCloudflareTimezone\\LaravelCloudflareTimezoneFacade"
+            }
+        }
+    }
+}
