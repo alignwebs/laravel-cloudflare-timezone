@@ -1,6 +1,6 @@
 {
     "name": "alignwebs/laravel-cloudflare-timezone",
-    "description": "Laravel app timezone by cloudflare's "CF-IPCountry" HTTP header",
+    "description": "Laravel app timezone by cloudflare's [CF-IPCountry] HTTP header",
     "keywords": [
         "alignwebs",
         "laravel-cloudflare-timezone"
